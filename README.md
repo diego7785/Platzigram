@@ -2,7 +2,7 @@
 Django course project from Platzi
 
 ## Dependecies
-[![Django versions](https://img.shields.io/pypi/djversions/djangorestframework)]
+![Django versions](https://img.shields.io/pypi/djversions/djangorestframework)
 
 
 ## Usage
