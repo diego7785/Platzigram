@@ -1,8 +1,9 @@
 ## Post views
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+from posts.forms import PostForm
 
 posts = [
     {
@@ -40,3 +41,23 @@ def list_posts(req):
     return render(req,'posts/feed.html', {
         'posts': posts
     })
+
+
+@login_required
+def create_post(req):
+    if req.method == 'POST':
+        form = PostForm(req.POST, req.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('feed')
+    else: 
+        form = PostForm()
+        return render(
+            req, 
+            template_name='posts/new.html',
+            context={
+                'form': form,
+                'user': req.user,
+                'profile': req.user.profile
+            }
+        )
